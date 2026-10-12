@@ -24,12 +24,12 @@ class User{
 class Order{
     String adress;
     int number;
-    int[] stuff = new int[list.length];
-    public Order (String adress, int number, int[] stuff){
+    int[] stuff_array = new int[list.length];
+    public Order (String adress, int number, int[] stuff_array){
         this.adress = adress;
         this.number = number;
-        for (int i = 0; i < stuff.length; i++)
-            this.stuff[i] = stuff[i];
+        for (int i = 0; i < stuff_array.length; i++)
+            this.stuff_array[i] = stuff_array[i];
     }
 }
 User user = new User("случайный адрес", 5000 );
@@ -48,13 +48,13 @@ int count_of_orders = 0;
 
 final int exit_code = 0;
 final int return_stuff_code = -1;
-final int samovivoz_code = 1, delivery_code = 2, fast_delivery_code=3;
-final double delivery_koef = 1.2, fast_delivery_koef = 1.5;
+        final int samovivoz_code = 1, delivery_code = 2, fast_delivery_code=3;
+        final double delivery_koef = 1.2, fast_delivery_koef = 1.5;
 int trail_long =(int) (Math.random()*20) + 1;
-final int courier_speed = 2, fast_courier_speed = 3;
+        final int courier_speed = 2, fast_courier_speed = 3;
 int[] speeds = {courier_speed, fast_courier_speed};
 String delivery_adress = "ул. Грибоедова д.6";
-int user_delivery_choice, user_courier_choice;
+        int user_delivery_choice, user_courier_choice;
 boolean order_empty = true;
 boolean work_done = false;
 Order[] list_of_orders = new Order[10];
@@ -109,6 +109,7 @@ void delete_stuff()
     order_empty = true;
     for (int i = 0; i < list.length; i++ ) // Проверяем, не опустел ли заказ
         if (order[i]>0) order_empty=false;
+
 }
 void menu_of_stuff(int stuff_number)
 {
@@ -117,11 +118,13 @@ void menu_of_stuff(int stuff_number)
     if (count_stuff <= list[stuff_number-1].count_on_storage ){
         order[stuff_number-1] = count_stuff;
         list[stuff_number-1].count_on_storage = list[stuff_number-1].count_on_storage - count_stuff;
-        order_empty = false;
+        if (count_stuff>0)
+            order_empty = false;
         total_sum += list[stuff_number-1].price * count_stuff;
     }
     else
         System.out.print("Операция не может быть выполнена"+ '\n');
+
 }
 void delivery_menu() {
     System.out.print("Как хотите получить заказ?" + '\n' + samovivoz_code + " Самовывоз;" + '\n' + delivery_code
@@ -169,7 +172,7 @@ void delivery_menu() {
         else
             System.out.print("Недостаточно средств. \n");
     } else if (user_delivery_choice == samovivoz_code) {
-        System.out.print("С вас " + total_sum + " гривен");
+        System.out.print("С вас " + total_sum + " гривен." + '\n');
         if (user.money>=total_sum) {
             System.out.print("Номер вашего заказа: " + order_number + ". Заберите заказ по адресу: " + delivery_adress + '.' + '\n');
             order_empty = true; // Для оформления нового заказа
@@ -195,8 +198,8 @@ void main()
 
                 System.out.print('\n'+ "N" + list_of_orders[i].number + ':');
                 for (int j = 0; j < list.length; j++)
-                    if (list_of_orders[i].stuff[j] > 0)
-                        System.out.print(' '+list[j].name + " X " + list_of_orders[i].stuff[j] + ',');
+                    if (list_of_orders[i].stuff_array[j] > 0)
+                        System.out.print(' '+list[j].name + " X " + list_of_orders[i].stuff_array[j] + ',');
             }
             System.out.print('\n');
         }
@@ -228,3 +231,4 @@ void main()
     }while (!work_done);
     System.out.print("Допобачення!" + '\n');
 }
+
