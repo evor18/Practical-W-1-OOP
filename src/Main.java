@@ -55,7 +55,6 @@ final int courier_speed = 2, fast_courier_speed = 3;
 int[] speeds = {courier_speed, fast_courier_speed};
 String delivery_adress = "ул. Грибоедова д.6";
 int user_delivery_choice, user_courier_choice;
-boolean wrong_enter = false, wrong_delivery_enter = false;
 boolean order_empty = true;
 boolean work_done = false;
 Order[] list_of_orders = new Order[10];
@@ -107,7 +106,9 @@ void delete_stuff()
     }
     else
         System.out.print("В корзине нет товара по этому индексу! \n");
-
+    order_empty = true;
+    for (int i = 0; i < list.length; i++ ) // Проверяем, не опустел ли заказ
+        if (order[i]>0) order_empty=false;
 }
 void menu_of_stuff(int stuff_number)
 {
@@ -121,9 +122,6 @@ void menu_of_stuff(int stuff_number)
     }
     else
         System.out.print("Операция не может быть выполнена"+ '\n');
-    order_empty = true;
-    for (int i = 0; i < list.length; i++ ) // Проверяем, не опустел ли заказ
-        if (order[i]>0) order_empty=false;
 }
 void delivery_menu() {
     System.out.print("Как хотите получить заказ?" + '\n' + samovivoz_code + " Самовывоз;" + '\n' + delivery_code
@@ -209,7 +207,6 @@ void main()
                 if (list[i].count_on_storage > 0)
                     System.out.print((i + 1) + ". " + list[i].name + "  -  " + list[i].price + "грн" + '\n');
             }
-            wrong_enter = false;
             System.out.print("Что хотите заказать? Введите номер товара (для завершения совершения заказа введите '0', для отмены - '-1'):" + '\n');
             user_choice = check_enter(return_stuff_code - 1, list.length);
             if (user_choice > exit_code && user_choice <= list.length)
