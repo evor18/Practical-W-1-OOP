@@ -1,12 +1,21 @@
 import java.util.Scanner;
 
-public class User {
+public class User implements Menu{
     String adress;
     int money;
+    private Menu menu;
     public User (String adress, int money)
     {
         this.adress = adress;
         this.money = money;
+    }
+    public void setMenu(Menu menu){
+        this.menu = menu;
+    }
+    public void showMenu(User user, Order[] list_of_orders) {
+        if (menu != null) {
+            menu.showMenu(user, list_of_orders);
+        }
     }
     int choice;
     int delivery_choice;
