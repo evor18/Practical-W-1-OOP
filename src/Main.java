@@ -12,8 +12,8 @@ public class Main {
                         Order.show();
                     user.setMenu(new baseStuffMenu());
                     user.showMenu( user,  list_of_orders);
-                } while (user.choice != Codes.exit);
-                if (!Order.empty) { // Если заказ не пуст
+                } while (user.choice != Codes.exit && user.choice != Codes.exitFinal);
+                if (!Order.empty && user.choice == Codes.exit) { // Если заказ не пуст
                     user.setMenu(new Delivery());
                     user.showMenu(user,list_of_orders);
                 }

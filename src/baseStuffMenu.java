@@ -2,8 +2,8 @@ public class baseStuffMenu implements  Menu{
     public void showMenu(User user, Order[] list_of_orders){
         Stuff.showAssort();
         System.out.print("Что хотите заказать? Введите номер товара (для завершения совершения заказа введите '" + Codes.exit + "', для отмены товара" +
-                " - '" + Codes.return_stuff + "')\n");
-        user.choice = User.check_enter(Codes.return_stuff - 1, Stuff.assortment_list.length);
+                " - '" + Codes.return_stuff + "', для выхода - '" + Codes.exitFinal + "':)\n");
+        user.choice = User.check_enter(Codes.exitFinal - 1, Stuff.assortment_list.length);
         if (user.choice == Codes.return_stuff && !Order.empty){
             Order.show();
             int index_delete_stuff;
@@ -27,7 +27,7 @@ public class baseStuffMenu implements  Menu{
             for (int i = 0; i < Stuff.assortment_list.length; i++ ) // Проверяем, не опустел ли заказ
                 if (Order.buff[i]>0) Order.empty=false;
         }
-        else if (user.choice!=Codes.exit) {
+        else if (user.choice!=Codes.exit && user.choice!= Codes.exitFinal) {
             int stuff_number = user.choice;
             System.out.print("Введите кол-во товара: " + '\n');
             int count_stuff = User.check_enter(-1, Integer.MAX_VALUE);
